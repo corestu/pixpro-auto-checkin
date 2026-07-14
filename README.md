@@ -24,8 +24,9 @@
 ## 安装
 
 1. 将 `pixpro-auto-checkin.php` 上传到 `/wp-content/plugins/` 目录（或创建 `pixpro-auto-checkin` 文件夹放入）。
-2. 在 WordPress 后台「插件」页面激活 **PixPro 自动签到**。
-3. 进入「设置 → PixPro 签到」进行配置。
+2. 或将 `pixpro-auto-checkin.php` 压缩为 zip 包，在 WordPress 后台「插件 → 安装插件 → 上传插件」选择 zip 文件安装。
+3. 在 WordPress 后台「插件」页面激活 **PixPro 自动签到**。
+4. 进入「设置 → PixPro 签到」进行配置。
 
 ## 配置说明
 
