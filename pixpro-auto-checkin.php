@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: PixPro 自动签到
- * Plugin URI: https://blog.aistu.cn
- * Description: 提供针对 pixpro 的每日自动签到功能。配置登录 Cookie 和目标站点后，插件会通过 WP Cron 定时自动执行签到，签到失败时自动发送邮件通知站长。
+ * Plugin URI: https://moyu.plus
+ * Description: 兼容 PixPro 1.3.0。提供针对 pixpro 的每日自动签到功能。配置登录 Cookie 和目标站点后，插件会通过 WP Cron 定时自动执行签到，签到失败时自动发送邮件通知站长。
  * Version: 1.3.0
  * Requires at least: 5.0
  * Requires PHP: 7.2

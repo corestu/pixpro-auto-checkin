@@ -362,7 +362,7 @@ function ppo_checkin_admin_page() {
                 </tr>
                 <tr>
                     <th scope="row"><?php _e('插件主页', 'pixpro-checkin'); ?></th>
-                    <td><a href="https://blog.aistu.cn" target="_blank" rel="noopener noreferrer">https://blog.aistu.cn</a></td>
+                    <td><a href="https://moyu.plus" target="_blank" rel="noopener noreferrer">https://moyu.plus</a></td>
                 </tr>
                 <tr>
                     <th scope="row"><?php _e('功能简介', 'pixpro-checkin'); ?></th>

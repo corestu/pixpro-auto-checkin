@@ -1,6 +1,8 @@
 # PIXPRO主题 自动签到
 
 > 针对 PIXPRO主题 的 WordPress 自动签到插件，支持主动任务与被动任务，签到失败自动邮件通知站长。
+>
+> 兼容 PixPro 主题 1.3.0
 
 ## 功能概览
 
@@ -122,4 +124,4 @@ WP Cron 定时触发
 
 ## 作者
 
-**摸鱼大王** | [摸鱼小窝](https://blog.aistu.cn) | [GitHub](https://github.com/corestu)
+**摸鱼大王** | [摸鱼小窝](https://moyu.plus) | [GitHub](https://github.com/corestu)
