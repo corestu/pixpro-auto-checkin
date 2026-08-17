@@ -59,7 +59,7 @@ function ppo_checkin_run_moment_cycle($cookie, $url, $resolve, $moment_id, $rest
 }
 
 // =============================================================
-//  单轮关注/取关（无需 nonce）
+//  单轮关注（先取关再关注，结尾保持关注状态，无需 nonce）
 // =============================================================
 
 function ppo_checkin_run_follow_cycle($cookie, $url, $resolve, $follow_id) {
@@ -67,14 +67,18 @@ function ppo_checkin_run_follow_cycle($cookie, $url, $resolve, $follow_id) {
     $content_form = ['Content-Type: application/x-www-form-urlencoded'];
     $ok = 0; $fail = 0;
 
+    // 先取关再关注：
+    // 1. 如果本来已关注，可以重新触发“关注”事件，继续拿每日关注/被关注奖励；
+    // 2. 如果本来未关注，取关接口也会返回成功，随后关注成功；
+    // 3. 最终一定保持“已关注”状态，方便后续私信任务正常执行。
     $r = ppo_checkin_curl_request($ajax_url, $cookie, 'POST',
-        'action=ppo_follow_user_ajax&following_id=' . $follow_id,
+        'action=ppo_unfollow_user_ajax&following_id=' . $follow_id,
         $content_form, $resolve, 15);
     $d = json_decode($r['body'], true);
     if (!empty($d['success'])) $ok++; else $fail++;
 
     $r = ppo_checkin_curl_request($ajax_url, $cookie, 'POST',
-        'action=ppo_unfollow_user_ajax&following_id=' . $follow_id,
+        'action=ppo_follow_user_ajax&following_id=' . $follow_id,
         $content_form, $resolve, 15);
     $d = json_decode($r['body'], true);
     if (!empty($d['success'])) $ok++; else $fail++;
@@ -94,8 +98,12 @@ function ppo_checkin_run_msg_cycle($cookie, $url, $resolve, $msg_id, $msg_nonce 
         return ['ok' => 0, 'fail' => 1];
     }
 
+    // 主题私信接口有重复内容限制（private_msg_duplicate_window）。
+    // 每次生成唯一后缀，避免连续发送相同内容被“请不要重复发送相同内容”拦截。
+    $msg = '经验+2 #' . wp_generate_password(6, false) . ' ' . current_time('H:i:s');
+
     $r = ppo_checkin_curl_request($ajax_url, $cookie, 'POST',
-        'action=send_private_msg&receive_id=' . $msg_id . '&msg=' . urlencode('经验+2') . '&nonce=' . urlencode($msg_nonce),
+        'action=send_private_msg&receive_id=' . $msg_id . '&msg=' . urlencode($msg) . '&nonce=' . urlencode($msg_nonce),
         $content_form, $resolve, 15);
     $d = json_decode($r['body'], true);
     if (!empty($d['status']) && $d['status'] == 1) return ['ok' => 1, 'fail' => 0];
@@ -278,7 +286,7 @@ function ppo_checkin_run_passive_comment_cycle($cookie, $url, $resolve, $comment
 
 /**
  * 循环执行多轮被动任务（第二个账号负责关注主账号、点赞主账号评论）
- * @param int $follow_times  关注/取消关注循环次数
+ * @param int $follow_times  取关后重新关注循环次数（最终保持关注状态）
  * @param int $comment_times 评论点赞/取消点赞循环次数
  * @return array ['total_ok'=>int, 'total_fail'=>int, 'message'=>string]
  */

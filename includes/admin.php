@@ -94,7 +94,7 @@ function ppo_checkin_admin_page() {
                     </th>
                     <td>
                         <input type="number" id="ppo_checkin_follow_id" name="ppo_checkin_settings[follow_id]" value="<?php echo intval($settings['follow_id'] ?? 0); ?>" class="small-text" min="1" step="1">
-                        <p class="description"><?php _e('一键任务会用此 ID 进行关注/取消关注操作', 'pixpro-checkin'); ?></p>
+                        <p class="description"><?php _e('一键任务会用此 ID 先取关再重新关注，最终保持关注状态，便于后续私信任务执行', 'pixpro-checkin'); ?></p>
                     </td>
                 </tr>
 
